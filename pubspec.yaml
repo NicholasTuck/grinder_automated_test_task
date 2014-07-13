@@ -1,7 +1,7 @@
 name: grinder_automated_test_task
 description: A grinder task that will generate a test file which will run all test files main() method. This eliminates the need for test suite files that have to call main on each individual test file.
 author: Nicholas Tuck <nick@nicholastuck.com>
-version: 0.0.1
+version: 0.0.1+1
 homepage: https://github.com/nicholastuck/grinder_automated_test_task
 dependencies:
   grinder: any
