@@ -1,0 +1,18 @@
+.DS_Store
+.project
+.idea
+*.iml
+
+# Don't commit the following directories created by pub.
+build/
+**/packages
+
+# Or the files created by dart2js.
+*.dart.js
+*.dart.precompiled.js
+*.js_
+*.js.deps
+*.js.map
+
+#Ignore testMain file produced by grinder test task
+test/testMain.dart
