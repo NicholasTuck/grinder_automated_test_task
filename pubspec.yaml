@@ -5,6 +5,6 @@ version: 0.0.1
 homepage: https://github.com/nicholastuck/grinder_automated_test_task
 dependencies:
   grinder: any
-
+  path: any
 dev_dependencies:
   unittest: any

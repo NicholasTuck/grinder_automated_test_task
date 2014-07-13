@@ -16,7 +16,7 @@ Add the dependency to your pubspec.yaml:
 
 Import it into your grinder.dart tasks file:
 
-    import 'package:grinder_automated_test_task/GrinderAutomatedTestTask.dart';
+    import 'package:grinder_automated_test_task/grinder_automated_test_task.dart';
 
 Create a task giving it a task name and any dependencies you want for the test task:
 

@@ -1,6 +1,7 @@
-library grinder_automated_test_task.GrinderAutomatedTestTask;
+library grinder_automated_test_task.grinder_automated_test_task;
 
 import 'package:grinder/grinder.dart';
+import 'package:path/path.dart' as Path;
 import 'dart:io';
 
 
@@ -8,7 +9,7 @@ GrinderTask createAutomatedTestTask(String taskName, {List<String> depends: cons
 
   GrinderAutomatedTestTask automatedTestTask = new GrinderAutomatedTestTask(testDirectory);
 
-  GrinderTask grinderTask = new GrinderTask(taskName, taskFunction: automatedTestTask.runTests , depends: depends, description: GrinderAutomatedTestTask.description);
+  GrinderTask grinderTask = new GrinderTask(taskName, taskFunction: automatedTestTask.runTests, depends: depends, description: GrinderAutomatedTestTask.description);
 
   return grinderTask;
 }
@@ -43,7 +44,7 @@ class GrinderAutomatedTestTask {
     _testDirectory.createSync();
 
     File testMainFile = new File(_testDirectory.path + "/testMain.dart");
-    if (testMainFile.existsSync()) testMainFile.delete();
+    if (testMainFile.existsSync()) testMainFile.deleteSync();
     testMainFile.createSync();
     return testMainFile;
   }
@@ -90,9 +91,9 @@ class GrinderAutomatedTestTask {
 
   static String _sanitizeFilePathForAsParameter(String filePath) => filePath.replaceAll("\\", "").replaceAll("/", "").replaceAll("\.", "");
 
-  static void _runTestProcess(GrinderContext context, File testMainFile) {
+  void _runTestProcess(GrinderContext context, File testMainFile) {
     try {
-      runDartScript(context, testMainFile.path);
+      runDartScript(context, Path.basename(testMainFile.path), workingDirectory: _testDirectory.path);
     } catch (exception) {
       context.fail("Tests Failed!");
     }
