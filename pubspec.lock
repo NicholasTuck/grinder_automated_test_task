@@ -13,6 +13,10 @@ packages:
     description: grinder
     source: hosted
     version: "0.5.4"
+  matcher:
+    description: matcher
+    source: hosted
+    version: "0.10.1+1"
   path:
     description: path
     source: hosted
@@ -21,3 +25,11 @@ packages:
     description: quiver
     source: hosted
     version: "0.18.2"
+  stack_trace:
+    description: stack_trace
+    source: hosted
+    version: "1.0.2"
+  unittest:
+    description: unittest
+    source: hosted
+    version: "0.11.0+2"

@@ -16,3 +16,7 @@ build/
 
 #Ignore testMain file produced by grinder test task
 test/testMain.dart
+
+
+#specific to this libraries tests
+test/exampleTests/testMain.dart
