@@ -36,7 +36,7 @@ packages:
   grinder:
     description: grinder
     source: hosted
-    version: "0.5.4"
+    version: "0.5.6"
   hop:
     description: hop
     source: hosted
