@@ -46,10 +46,12 @@ class GrinderHeadlessTestTask {
         context.log(_colorizeAsError('Tests did not complete'));
         context.fail(run.errorOutput);
       }
-    }).catchError((_) {
-      context.fail('Unable to find $contentShellCommand on the path.');
-    });
+    }).catchError((_) => _processFailedHandler(context, contentShellCommand), test: (e) => !(e is GrinderException));
 
+  }
+
+  void _processFailedHandler(GrinderContext context, String contentShellCommand) {
+    context.fail('Unable to find $contentShellCommand on the path.');
   }
 
   void _logTestFailure(TestResult testResult, GrinderContext context) {

@@ -5,6 +5,7 @@ import 'package:grinder_automated_test_task/grinder_automated_test_task.dart';
 void main([List<String> args]) {
   defineTask('init', taskFunction: init);
   addTask(createAutomatedTestTask('test', depends: ['init']));
+  addTask(createHeadlessTestTask('testHeadless', depends: ['init']));
 
   startGrinder(args);
 }
