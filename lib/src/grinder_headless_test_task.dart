@@ -25,32 +25,33 @@ class GrinderHeadlessTestTask {
   _runContentShellHeadless(GrinderContext context) {
     String contentShellCommand = 'content_shell';
     try {
-      ProcessResult processResult =  Process.runSync(contentShellCommand, ['--dump-render-tree', 'test/testMainBasic.html']);
-        var run = htmlConfigParser(processResult.stdout);
+      ProcessResult processResult = Process.runSync(contentShellCommand, ['--dump-render-tree', 'test/testMainBasic.html']);
+      var run = htmlConfigParser(processResult.stdout);
 
-        if (run.didComplete) {
-          var passes = run.results.where((result) => result.isPass);
-          var errors = run.results.where((result) => result.isError);
-          var failures = run.results.where((result) => result.isFailure);
+      if (run.didComplete) {
+        var passes = run.results.where((result) => result.isPass);
+        var errors = run.results.where((result) => result.isError);
+        var failures = run.results.where((result) => result.isFailure);
 
-          errors.forEach((error) => _logTestFailure(error, context));
-          failures.forEach((failure) => _logTestFailure(failure, context));
+        errors.forEach((error) => _logTestFailure(error, context));
+        failures.forEach((failure) => _logTestFailure(failure, context));
 
-          var summary = 'Test results: ${passes.length} passed, ${failures.length} failed, ${errors.length} errored';
-          if (errors.isNotEmpty || failures.isNotEmpty) {
-            context.fail(_colorizeAsError(summary));
-          } else {
-            context.log(_colorizeAsSuccess(summary));
-          }
+        var summary = 'Test results: ${passes.length} passed, ${failures.length} failed, ${errors.length} errored';
+        if (errors.isNotEmpty || failures.isNotEmpty) {
+          context.fail(_colorizeAsError(summary));
         } else {
-          context.log(_colorizeAsError('Tests did not complete '));
-          context.fail(run.errorOutput);
+          context.log(_colorizeAsSuccess(summary));
         }
-      } on GrinderException catch (e) {
-        throw e;
-      } catch (e) {
-        context.fail('Unable to find $contentShellCommand on the path.');
+      } else {
+        context.log(_colorizeAsError('Tests did not complete '));
+        context.fail(run.errorOutput);
       }
+    } on GrinderException catch (e) {
+      throw e;
+    } catch (e) {
+      context.fail('Unable to find $contentShellCommand on the path.');
+    }
+  }
 
   void _logTestFailure(TestResult testResult, GrinderContext context) {
     context.log("${testResult.description}\n${testResult.stackTrace}");
