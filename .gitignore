@@ -21,3 +21,6 @@ test/testMain.dart
 
 #specific to this libraries tests
 test/exampleTests/testMain.dart
+test/exampleTests/testMainHeadless.dart
+test/exampleTests/testMainHeadless.html
+
