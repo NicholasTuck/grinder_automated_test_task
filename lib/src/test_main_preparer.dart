@@ -3,7 +3,7 @@ part of grinder_automated_test_task.grinder_automated_test_task;
 class TestMainPreparer {
   Directory testDirectory = new Directory("test");
 
-  TestMainPreparer(Directory testDirectory) {
+  TestMainPreparer({Directory testDirectory}) {
     if (testDirectory != null) this.testDirectory = testDirectory;
   }
 
