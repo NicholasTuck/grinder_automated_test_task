@@ -7,7 +7,7 @@ class GrinderAutomatedTestTask {
   TestMainPreparer testMainPreparer;
 
   GrinderAutomatedTestTask(Directory testDirectory) {
-    testMainPreparer = new TestMainPreparer(testDirectory);
+    testMainPreparer = new TestMainPreparer(testDirectory: testDirectory);
   }
 
   void runTests(GrinderContext context) {

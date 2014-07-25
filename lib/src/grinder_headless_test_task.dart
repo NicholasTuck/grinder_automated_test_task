@@ -11,7 +11,7 @@ class GrinderHeadlessTestTask {
   TestMainPreparer testMainPreparer;
 
   GrinderHeadlessTestTask(Directory testDirectory) {
-    testMainPreparer = new TestMainPreparer(testDirectory);
+    testMainPreparer = new TestMainPreparer(testDirectory: testDirectory);
   }
 
   void runTests(GrinderContext context) {
