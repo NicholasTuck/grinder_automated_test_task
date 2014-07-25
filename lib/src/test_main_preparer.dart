@@ -8,11 +8,16 @@ class TestMainPreparer {
   }
 
   File generateTestMainFile() {
-    File testMainFile = _createTestMainFile();
+    File testMainFile = _createFile(testDirectory, "testMain.dart");
     List<String> testFilePaths = _getAllTestFilePaths();
 
     testMainFile.writeAsStringSync("""
     ${_getFileImports(testFilePaths)}
+
+    /**
+    * THIS IS A GENERATED FILE. DO NOT MODIFY OR COMMIT.  PLEASE ADD ME TO YOUR .gitignore OR .hgignore
+    * Brought to you buy grinder_automated_test_task
+    */
 
     void main() {
       ${_buildMainCalls(testFilePaths)}
@@ -22,10 +27,27 @@ class TestMainPreparer {
     return testMainFile;
   }
 
-  File _createTestMainFile() {
-    testDirectory.createSync();
+  File copyHeadlessTestMainDart() {
+    return copyFile(testDirectory, "testMainHeadless.dart");
+  }
 
-    File testMainFile = new File(testDirectory.path + "/testMain.dart");
+  File copyHeadlessTestMainHtml() {
+    return copyFile(testDirectory, "testMainHeadless.html");
+  }
+
+  File copyFile(Directory directory, String filename){
+    File sourceFile = new File("packages/grinder_automated_test_task/src/$filename");
+    String sourceContents = sourceFile.readAsStringSync();
+
+    File destinationFile = _createFile(directory, filename);
+    destinationFile.writeAsStringSync(sourceContents);
+    return destinationFile;
+  }
+
+  File _createFile(Directory directory, String fileName) {
+    directory.createSync();
+
+    File testMainFile = new File(directory.path + "/" + fileName);
     if (testMainFile.existsSync()) testMainFile.deleteSync();
     testMainFile.createSync();
     return testMainFile;

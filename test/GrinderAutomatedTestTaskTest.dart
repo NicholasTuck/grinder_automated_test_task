@@ -10,11 +10,26 @@ import 'dart:io';
 main() {
 
   Directory testDirectory = new Directory('exampleTests');
-  Grinder grinder = new Grinder();
-  grinder.addTask(createAutomatedTestTask('testExampleDirectory', testDirectory: testDirectory));
-  grinder.start(['testExampleDirectory']);
+
+  group("Creating Headless Test Main Files", () {
+    Grinder grinder = new Grinder();
+    grinder.addTask(createHeadlessTestTask('testHeadless', testDirectory: testDirectory));
+    grinder.start(['testHeadless']);
+
+    test("should create headless test main dart file", () {
+      List<File> files = new FileSet.fromDir(testDirectory, pattern: 'testMainHeadless.dart').files;
+      expect(files, hasLength(1));
+    });
+    test("should create headless test main html file", () {
+      List<File> files = new FileSet.fromDir(testDirectory, pattern: 'testMainHeadless.html').files;
+      expect(files, hasLength(1));
+    });
+  });
 
   group("Creating Test Main File", () {
+    Grinder grinder = new Grinder();
+    grinder.addTask(createAutomatedTestTask('testExampleDirectory', testDirectory: testDirectory));
+    grinder.start(['testExampleDirectory']);
 
     test("should create test main file", () {
       List<File> files = new FileSet.fromDir(testDirectory, pattern: 'testMain.dart').files;

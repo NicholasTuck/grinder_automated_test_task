@@ -1,7 +1,7 @@
 part of grinder_automated_test_task.grinder_automated_test_task;
 
 class GrinderHeadlessTestTask {
-  static const String description = "Generates a 'test/testMain.dart' file test main of all 'test/**/*Test.dart' and 'test/**/*_test.dart' test files and runs them via chromiums `contentShell test/testMainBasic.html`";
+  static const String description = "Generates a 'test/testMain.dart' file test main of all 'test/**/*Test.dart' and 'test/**/*_test.dart' test files and runs them via chromiums `contentShell test/testMainHeadless.html`";
 
   final _colorizeAsError = new AnsiPen()..red();
   final _colorizeAsFailure = new AnsiPen()..red();
@@ -18,6 +18,8 @@ class GrinderHeadlessTestTask {
     context.log("Starting Testing...");
 
     File testMainFile = testMainPreparer.generateTestMainFile();
+    testMainPreparer.copyHeadlessTestMainDart();
+    testMainPreparer.copyHeadlessTestMainHtml();
 
     _runContentShellHeadless(context);
   }
@@ -25,7 +27,7 @@ class GrinderHeadlessTestTask {
   _runContentShellHeadless(GrinderContext context) {
     String contentShellCommand = 'content_shell';
     try {
-      ProcessResult processResult = Process.runSync(contentShellCommand, ['--dump-render-tree', 'test/testMainBasic.html']);
+      ProcessResult processResult = Process.runSync(contentShellCommand, ['--dump-render-tree', 'test/testMainHeadless.html']);
       var run = htmlConfigParser(processResult.stdout);
 
       if (run.didComplete) {
